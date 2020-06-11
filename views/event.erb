@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-9">
+    <h1><%= @event[:title] %></h1>
+    <p><%= @event[:description] %></p>
+    <p class="mt-5"><a href="/events/<%= @event[:id] %>/rsvps/new" class="btn btn-primary">RSVP</a></p>
+    <h3 class="mt-5">Responses</h3>
+    <% for rsvp in @rsvps %>
+        <% user = @users_table.where(:id => rsvp[:user_id]).to_a[0] %>
+      <div class="media">
+      <div class="media mt-3">
+        <% if rsvp[:going] %>
+          <i class="far fa-smile"></i>
+        <% else %>
+          <i class="far fa-frown"></i>
+        <% end %>
+        <div class="media-body ml-3">
+          <h5 class="mt-0"><%= user[:name] %></h5>
+          <%= rsvp[:comments] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-sm-3">
+    <h3>When?</h3>
+    <p><%= @event[:date] %></p>
+    <h3>Where?</h3>
+    <p><%= @event[:location] %></p>
+    <h3>How many guests so far?</h3>
+    <p><%= @count %></p>
+  </div>
+</div>
